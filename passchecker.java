@@ -7,12 +7,7 @@ public class passchecker
 	{
 		LengthRule lengthRule = new LengthRule(8, 26);
 		WhitespaceRule whitespaceRule = new WhitespaceRule();
-		/*CharacterCharacteristicsRule charRule = new CharacterCharacteristicsRule();
-		charRule.getRules().add(new DigitCharacterRule(1));
-		charRule.getRules().add(new NonAlphanumericCharacterRule(1));
-		charRule.getRules().add(new UppercaseCharacterRule(1));
-		charRule.getRules().add(new LowercaseCharacterRule(1));
-		*/
+	
 		AlphabeticalSequenceRule alphaSeqRule = new AlphabeticalSequenceRule();
 		RepeatCharacterRegexRule repeatRule = new RepeatCharacterRegexRule(4);
 		
