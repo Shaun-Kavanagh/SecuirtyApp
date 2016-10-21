@@ -1,3 +1,4 @@
+//this file isn't used, don't add it to your package.
 package test;
 import java.nio.file.Files;
 import java.nio.file.Path;
