@@ -17,6 +17,7 @@ public class Entry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         //this setcontentView sets what xml file is being used here
         setContentView(R.layout.activity_entry);
+        //initialise everything you are interacting with, such as buttons and text fields
         final TextView showPass= (TextView)findViewById(R.id.textViewGen);
         final Button generate=(Button)findViewById(R.id.Generate);
         final Button Check=(Button)findViewById(R.id.Checker);
@@ -29,17 +30,21 @@ public class Entry extends AppCompatActivity {
             public void onClick(View v){
                 //init obj call
                 obj pass= new obj();
+                //this is hardcoded in right now but we will take in inputs from the user using radio buttons probably
                 String Password =pass.Generate(15,true,true,true,true);
+                //.setText displays what is generated in Password string
                 showPass.setText(Password);
             }
         });
         Check.setOnClickListener(new Button.OnClickListener(){
             @Override
             public void onClick(View v){
-                //init obj call
+                //this gets the text entered into the edit text
                 String text= inPass.getText().toString();
                 obj pass= new obj();
+                //checks the password and returs to a string
                 String Password =pass.Checker(text);
+                //displays the string
                 result.setText(Password);
             }
         });
