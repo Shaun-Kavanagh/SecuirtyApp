@@ -1,5 +1,7 @@
 package com.example.dave.test;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -9,6 +11,7 @@ import android.widget.TextView;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.io.IOException;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -23,17 +26,27 @@ public class Entry extends AppCompatActivity  {
         setContentView(R.layout.activity_entry);
 
         final Button send=(Button)findViewById(R.id.send);
+        Intent intent = getIntent();
+        final String Profile = intent.getStringExtra("filename");
 
-        final EditText password=(EditText)findViewById(R.id.password);
+        final EditText passWord=(EditText)findViewById(R.id.password);
+        final EditText userName=(EditText)findViewById(R.id.username);
         final EditText siteName=(EditText)findViewById(R.id.siteName);
+        final Context context = this.getApplicationContext();
 
 
 
-        send.setOnClickListener(new Button.OnClickListener(){
-            @Override
-            public void onClick(View v){
-                String pass=password.getText().toString();
+        FileIO File = new FileIO();
+        //File.load(Profile, context);
+        String Name = siteName.getText().toString() + "\n";
+        try {
+            File.save(Profile, Name, context);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+                String pass=passWord.getText().toString();
                 String name=siteName.getText().toString();
+                String username=userName.getText().toString();
                 //send this to firebase
                 //create objects
                 obj enc=new obj();
@@ -52,12 +65,8 @@ public class Entry extends AppCompatActivity  {
                 //this is where the "password" is an encrypted string, this is going to be sent to firebase
                 //along with the username tied to it
                 //This code hasn't been stress tested yet
-                //Also this doesn't create an entry yet, just for future reference 
+                //Also this doesn't create an entry yet, just for future reference
 
-
-
-            }
-        });
 
     }
 }

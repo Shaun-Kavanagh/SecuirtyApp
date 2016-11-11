@@ -1,4 +1,5 @@
 package com.example.dave.test;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.DateTimePatternGenerator;
@@ -26,12 +27,38 @@ public class Entries extends AppCompatActivity {
 
         final Button myButton = (Button)findViewById(R.id.Gen);
         final Button entry=(Button)findViewById(R.id.entry1);
-
+        final Context context=this.getApplicationContext();
+        String filename1="file1";
+        FileIO File= new FileIO();
+        String site=File.load(filename1,context);
+        if(site.equals("cant read file")){
+            //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
+            site="";
+        }
+        if(!(site.length()==0)) {
+            entry.setText(site);
+        }
         entry.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v){
-                Intent ButtonIntent= new Intent(Entries.this, Entry.class);
-                startActivity(ButtonIntent);
+                String filename1="file1";
+                FileIO File= new FileIO();
+                String site=File.load(filename1,context);
+                if(site.equals("cant read file")){
+                    //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
+                    site="";
+                }
+                if(!(site.length()==0)) {
+                    entry.setText(site);
+                }
+
+                if(site.length()==0) {
+                    Intent ButtonIntent = new Intent(Entries.this, Entry.class);
+                    startActivity(ButtonIntent);
+                }else{
+                    Intent ButtonIntent = new Intent(Entries.this, Entry.class).putExtra("filename",site);
+                    startActivity(ButtonIntent);
+                }
              }
             });
         myButton.setOnClickListener(new Button.OnClickListener() {
