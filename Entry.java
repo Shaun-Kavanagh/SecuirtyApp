@@ -35,15 +35,22 @@ public class Entry extends AppCompatActivity  {
         final Context context = this.getApplicationContext();
 
 
+        send.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FileIO File = new FileIO();
+                //File.load(Profile, context);
+                String Name = siteName.getText().toString()+ "\n";
+                try {
+                    File.save(Profile, Name, context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent ButtonIntent = new Intent(Entry.this, Entries.class);
+                startActivity(ButtonIntent);
+            }
+        });
 
-        FileIO File = new FileIO();
-        //File.load(Profile, context);
-        String Name = siteName.getText().toString() + "\n";
-        try {
-            File.save(Profile, Name, context);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
                 String pass=passWord.getText().toString();
                 String name=siteName.getText().toString();
                 String username=userName.getText().toString();

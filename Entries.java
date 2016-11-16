@@ -7,10 +7,30 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
+
+import android.app.Activity;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+import android.widget.LinearLayout.LayoutParams;
 
 import static android.R.interpolator.linear;
 
@@ -18,12 +38,15 @@ import static android.R.interpolator.linear;
 /**
  * Created by shaun on 14/10/2016.
  */
-public class Entries extends AppCompatActivity {
+
+public class Entries extends AppCompatActivity{
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //this setcontentView sets what xml file is being used here
         setContentView(R.layout.activity_entries);
+
 
         final Button myButton = (Button)findViewById(R.id.Gen);
         final Button entry=(Button)findViewById(R.id.entry1);
@@ -33,30 +56,27 @@ public class Entries extends AppCompatActivity {
         String site=File.load(filename1,context);
         if(site.equals("cant read file")){
             //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-            site="";
-        }
-        if(!(site.length()==0)) {
+            site="Entry Button";
+        }else{
             entry.setText(site);
         }
+        entry.setText(site);
         entry.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v){
                 String filename1="file1";
                 FileIO File= new FileIO();
                 String site=File.load(filename1,context);
+                //entry.setText(site);
                 if(site.equals("cant read file")){
                     //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
                     site="";
                 }
-                if(!(site.length()==0)) {
-                    entry.setText(site);
-                }
-
                 if(site.length()==0) {
-                    Intent ButtonIntent = new Intent(Entries.this, Entry.class);
+                    Intent ButtonIntent = new Intent(Entries.this, Entry.class).putExtra("filename",site);
                     startActivity(ButtonIntent);
                 }else{
-                    Intent ButtonIntent = new Intent(Entries.this, Entry.class).putExtra("filename",site);
+                    Intent ButtonIntent = new Intent(Entries.this, EntryView.class).putExtra("filename",site);
                     startActivity(ButtonIntent);
                 }
              }
@@ -76,29 +96,6 @@ public class Entries extends AppCompatActivity {
                 startActivity(ButtonIntent);
             }
         });
-       /* myButton.setText("Push Me");
-        LinearLayout ll = (LinearLayout)findViewById(R.id.buttonLayout);
-        LayoutParams lp = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
-        ll.addView(myButton, lp);
-      /*  for (int i = 1; i <= 20; i++) {
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                    LinearLayout.LayoutParams.MATCH_PARENT,
-                    LinearLayout.LayoutParams.WRAP_CONTENT);
-            Button btn = new Button(this);
-            btn.setId(i);
-            final int id_ = btn.getId();
-            btn.setText("button " + id_);
-            btn.setBackgroundColor(Color.rgb(70, 80, 90));
-            linear.addView(btn,params);
-            final Button  btn1 = ((Button) findViewById(id_));
-            btn1.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    Toast.makeText(view.getContext(),
-                            "Button clicked index = " + id_, Toast.LENGTH_SHORT)
-                            .show();
-                }
-            });
-        }*/
-
     }
+
 }

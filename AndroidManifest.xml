@@ -16,10 +16,13 @@
             </intent-filter>
         </activity>
         <activity android:name=".Entry"></activity>
+        <activity android:name=".EntryView"></activity>
         <activity android:name=".Entries"></activity>
         <activity android:name=".SignUp"></activity>
         <activity android:name=".Generation"></activity>
         <activity android:name=".Checker"></activity>
+        <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+        <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
 
     </application>

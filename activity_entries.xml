@@ -3,10 +3,8 @@
               android:orientation="vertical"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@drawable/trump">
-
-
-
+              android:background="@drawable/trump"
+                android:id="@+id/Layout">
 
     <Button
             android:layout_width="wrap_content"
@@ -26,16 +24,15 @@
             android:layout_alignStart="@+id/Gen"
             />
     <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:minHeight="80dp"
-            android:minWidth="300dp"
-            android:text="Enter an Entry"
-            android:clickable="true"
-            android:id="@+id/entry1"
-            android:layout_below="@+id/Check"
-            android:layout_centerHorizontal="true"
-            />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        android:minWidth="300dp"
+        android:text="Enter an Entry"
+        android:clickable="true"
+        android:id="@+id/entry1"
+        android:layout_below="@+id/Check"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
             android:layout_width="wrap_content"
