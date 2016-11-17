@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:showIn="@layout/activity_main"
+        tools:context="com.example.zach.myapp2.MainActivity"
+        android:contextClickable="true" android:background="@drawable/apppicture2">
+
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageView"
+            android:scaleType="fitXY"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_alignTop="@+id/textView" android:layout_alignParentStart="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Name"
+            android:id="@+id/condition1"
+            android:contextClickable="false"
+            android:layout_above="@+id/condition2" android:layout_alignStart="@+id/condition2"/>
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SHOW INFO SENT"
+            android:id="@+id/textView"
+            android:autoText="false" android:textColor="#11ff04"
+            android:layout_centerVertical="true" android:layout_alignEnd="@+id/condition3"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Pass"
+            android:id="@+id/condition2"
+            android:contextClickable="false"
+            android:layout_above="@+id/condition3" android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Send Website"
+            android:id="@+id/condition3"
+            android:contextClickable="false"
+            android:layout_above="@+id/reset_all" android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESET INFO ON DATABASE"
+            android:id="@+id/reset_all"
+            android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:text="Name"
+            android:ems="10"
+            android:id="@+id/editText"
+            android:layout_marginTop="35dp" android:textColor="#f9070b" android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/editText2"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:ems="10"
+            android:id="@+id/editText2"
+            android:textColor="#ff0000" android:text="Password" android:layout_below="@+id/editText"
+            android:layout_centerHorizontal="true"/>
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/editText3" android:layout_below="@+id/editText2" android:layout_centerHorizontal="true"
+            android:text="Website entry" android:textColor="#f80707" android:inputType="textWebEmailAddress"/>
+</RelativeLayout>
+
