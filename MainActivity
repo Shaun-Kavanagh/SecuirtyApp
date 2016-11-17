@@ -1,0 +1,195 @@
+package com.example.zach.myapp2;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import com.firebase.client.Firebase;
+import com.google.firebase.database.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.zach.myapp2.R.id.*;
+
+
+public class MainActivity extends AppCompatActivity {
+    TextView mConditionTextView;
+    Button mCondition1;
+    Button mCondition2;
+    Button mCondition3;
+    EditText mEditText;
+    EditText mEditText2;
+
+
+
+
+    //***REFERENCE for app to access database DATA***
+    DatabaseReference mRootRef= FirebaseDatabase.getInstance().getReference();
+    DatabaseReference mConditionRef=mRootRef.child("username");
+    DatabaseReference mConditionRef1=mRootRef.child("password");
+    DatabaseReference mConditionRef2=mRootRef.child("website_entry");
+
+    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference ref = database.getReference("server/saving-data/fireblog");
+
+    //DatabaseReference ref = mRootRef("server/saving-data/fireblog");
+    DatabaseReference usersRef = ref.child("users");
+
+    @Override
+        public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        //***ERROR BEGINS HERE***
+        //**********TRYING TO CREATE CHILD NODES *************
+        /*Map<String, User> users = new HashMap<String, User>();
+
+        users.put("alanisawesome", new User("June 23, 1912", "Alan Turing"));
+        final User put = users.put("gracehop", new User("December 9, 1906", "Grace Hopper", "test"));
+        mRootRef.setValue(users);*/
+        //***ERROR ENDS HERE***
+
+
+        //Get UI elements
+        final TextView mConditionTextView = (TextView) findViewById(textView);
+        final EditText mEditText=(EditText) findViewById(editText); //name input textbar
+        final EditText mEditText2=(EditText) findViewById(editText2); //password input textbar
+        final EditText mEditText3=(EditText) findViewById(editText3); //website input textbar
+        final Button mCondition1 = (Button) findViewById(R.id.condition1);
+        final Button mCondition2 = (Button) findViewById(R.id.condition2);
+        final Button mCondition3 = (Button) findViewById(R.id.condition3);
+        final Button mCondition4 = (Button) findViewById(R.id.reset_all);
+       // final Button Hello = (Button) findViewById(R.id.Hello);
+
+
+        //***Creates the ability to check values on database*****
+        //Changes text view to approriate data sent
+       final ValueEventListener valueEventListener = mConditionRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            //gets a snapshot of firebase (pulls down data from database)
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                mConditionTextView.setText(text);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final ValueEventListener valueEventListener1 = mConditionRef1.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            //gets a snapshot of firebase (pulls down data from database)
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                mConditionTextView.setText(text);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        final ValueEventListener valueEventListener2 = mConditionRef2.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            //gets a snapshot of firebase (pulls down data from database)
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String text = dataSnapshot.getValue(String.class);
+                mConditionTextView.setText(text);
+            }
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        //*********************************************************
+        mCondition1.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText userNameInput= (EditText) findViewById(editText);
+
+                mConditionRef.setValue("USER:"+userNameInput.getText());
+
+
+            }
+        });
+
+
+
+        mCondition2.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText passwordInput= (EditText) findViewById(editText2);
+
+                mConditionRef1.setValue("PASS:"+passwordInput.getText());
+
+            }
+        });
+
+
+        mCondition3.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText webInput=(EditText) findViewById(editText3);
+
+                mConditionRef2.setValue("WEB:"+webInput.getText());
+
+            }
+        });
+
+        mCondition4.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //TextView textBarNotify= (TextView) findViewById(textView);
+                mConditionTextView.setText("***RESETED DATA IN FIREBASE***");
+                mConditionRef.setValue("*RESET*");
+                mConditionRef1.setValue("*RESET*");
+                mConditionRef2.setValue("*RESET*");
+               // mConditionRef1.setValue("***RESETTED***");
+
+            }
+        });
+    }
+        //***ERROR WHEN TRING TO RUN BUTTON 3***
+      /*  mCondition3.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick( View v){
+                mConditionRef2.setValue("***www.website.com***");
+
+            }
+        });*/
+
+
+        //***ERROR WHEN TRING TO RUN BUTTON 3***
+       /*mCondition3.setOnClickListener(new Button.OnClickListener(){
+            @Override
+            public void onClick( View v){
+                mConditionRef2.setValue("www.website.com");
+
+            }
+        });*/
+
+
+
+
+
+        protected void onStart(){
+        super.onStart();
+
+
+
+
+
+    }
+}
