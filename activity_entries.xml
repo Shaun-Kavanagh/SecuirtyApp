@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+                android:background="@drawable/basic"
+                android:id="@+id/Layout">
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generator"
+            android:id="@+id/Gen"
+            android:layout_marginTop="52dp" android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Checker"
+            android:id="@+id/Check"
+            android:layout_below="@+id/Gen" android:layout_alignLeft="@+id/Gen"
+            android:layout_alignStart="@+id/Gen"
+            />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minHeight="80dp"
+        android:minWidth="300dp"
+        android:text="Enter an Entry"
+        android:clickable="true"
+        android:id="@+id/entry1"
+        android:layout_below="@+id/Check"
+        android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:minWidth="300dp"
+            android:text="Enter an Entry"
+            android:clickable="true"
+            android:id="@+id/entry2"
+            android:layout_below="@+id/entry1"
+            android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:minWidth="300dp"
+            android:text="Enter an Entry"
+            android:clickable="true"
+            android:id="@+id/entry3"
+            android:layout_below="@+id/entry2"
+            android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="80dp"
+            android:minWidth="300dp"
+            android:text="Enter an Entry"
+            android:clickable="true"
+            android:id="@+id/entry4"
+            android:layout_below="@+id/entry3"
+            android:layout_centerHorizontal="true"/>
+
+</RelativeLayout>

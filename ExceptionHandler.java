@@ -1,4 +1,4 @@
-package com.example.zach.myapp2;
+package com.example.shaun.securityapp;
 
 /**
  * Created by Dave on 11/11/2016.
@@ -11,7 +11,7 @@ import android.content.Intent;
 import android.os.Build;
 
 public class ExceptionHandler implements
-        Thread.UncaughtExceptionHandler {
+        java.lang.Thread.UncaughtExceptionHandler {
     private final Activity myContext;
     private final String LINE_SEPARATOR = "\n";
 
@@ -69,7 +69,7 @@ public class ExceptionHandler implements
         intent3.putExtra("error", errorReport.toString());
         myContext.startActivity(intent3);
 
-        Intent intent4 = new Intent(myContext, MainActivity.class);
+        Intent intent4 = new Intent(myContext, MainActivityZ.class);
         intent4.putExtra("error", errorReport.toString());
         myContext.startActivity(intent4);
 

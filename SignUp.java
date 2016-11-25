@@ -1,4 +1,4 @@
-package com.example.zach.myapp2;
+package com.example.shaun.securityapp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -22,7 +22,7 @@ public class SignUp extends AppCompatActivity {
         final EditText userName=(EditText) findViewById(R.id.editTextUserName);
         final EditText Password=(EditText) findViewById(R.id.editTextPassword);
         //Buttons are buttons that you click
-        final Button SignUp=(Button) findViewById(R.id.buttonSignUp);
+        final Button SignUp=(Button) findViewById(R.id.buttonLogin);
 
 
 

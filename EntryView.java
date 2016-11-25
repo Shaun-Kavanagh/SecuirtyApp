@@ -1,4 +1,4 @@
-package com.example.zach.myapp2;
+package com.example.shaun.securityapp;
 
 import android.content.Intent;
 import android.os.Bundle;

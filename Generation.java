@@ -1,4 +1,4 @@
-package com.example.zach.myapp2;
+package com.example.shaun.securityapp;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;

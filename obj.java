@@ -1,4 +1,4 @@
-package com.example.zach.myapp2;
+package com.example.shaun.securityapp;
 
 import javax.crypto.*;
 import edu.vt.middleware.password.*;

@@ -1,4 +1,4 @@
-package com.example.zach.myapp2;
+package com.example.shaun.securityapp;
 
         import android.content.res.AssetManager;
         import android.content.Context;
@@ -24,7 +24,7 @@ public class FileIO {
             stream = asset.open(file);
         } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("cant find file");
+            System.out.println("cant find file load");
         }
 
        /* InputStreamReader readStream = new InputStreamReader(stream);
@@ -60,7 +60,7 @@ public class FileIO {
             stream = asset.open(file);
         }catch (IOException e) {
             e.printStackTrace();
-            System.out.println("cant find file");
+            System.out.println("cant find file save");
         }
 
         try { //this writes to the file
