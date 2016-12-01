@@ -82,41 +82,8 @@ public class Entry extends AppCompatActivity  {
         firebaseclass.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                name=userName.getText().toString();
-                //mConditionRef.setValue(userNameInput.getText());
-               // mConditionTextView.setText("*USERNAME ready to push to FIREBASE!*.");
-                //reset username text field
-                userName.setText("");
                 pass=passWord.getText().toString();
-                passWord.setText("");
-                web=siteName.getText().toString();
-                siteName.setText("");
 
-                mPostRef.push().setValue(new User(name, pass, web));
-                mPostRef1.push().setValue(new Websites(web));
-                mPostRef2.push().setValue(new Users(name));
-            }
-        });
-        send.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FileIO File = new FileIO();
-                //File.load(Profile, context);
-                String Name = siteName.getText().toString()+ "\n";
-                try {
-                    File.save(Profile, Name, context);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                Intent ButtonIntent = new Intent(Entry.this, Entries.class);
-                startActivity(ButtonIntent);
-            }
-        });
-
-               /* String pass=passWord.getText().toString();
-                String name=siteName.getText().toString();
-                String username=userName.getText().toString();
                 //send this to firebase
                 //create objects
                 obj enc=new obj();
@@ -127,11 +94,47 @@ public class Entry extends AppCompatActivity  {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                String password="";
                 try {
-                    String password = enc.Encrypt(pass, SecKey);
+                     password = enc.Encrypt(pass, SecKey);
                 } catch (Exception e) {
                     e.printStackTrace();
-                }*/
+                }
+                name=userName.getText().toString();
+                //mConditionRef.setValue(userNameInput.getText());
+               // mConditionTextView.setText("*USERNAME ready to push to FIREBASE!*.");
+                //reset username text field
+                userName.setText("");
+
+                passWord.setText("");
+                web=siteName.getText().toString();
+                String Name = siteName.getText().toString()+ "\n";
+                siteName.setText("");
+
+                mPostRef.push().setValue(new User(name, password, web));
+                mPostRef1.push().setValue(new Websites(web));
+                mPostRef2.push().setValue(new Users(name));
+
+                FileIO File = new FileIO();
+                //File.load(Profile, context);
+
+                try {
+                    File.save(Profile, Name, context);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                Intent ButtonIntent = new Intent(Entry.this, Entries.class);
+                startActivity(ButtonIntent);
+            }
+        });
+        send.setOnClickListener(new Button.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+
                 //this is where the "password" is an encrypted string, this is going to be sent to firebase
                 //along with the username tied to it
                 //This code hasn't been stress tested yet
