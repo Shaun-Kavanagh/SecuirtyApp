@@ -63,5 +63,10 @@
             android:id="@+id/entry4"
             android:layout_below="@+id/entry3"
             android:layout_centerHorizontal="true"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sign Out"
+            android:id="@+id/buttonSignOut" android:layout_below="@+id/entry4" android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

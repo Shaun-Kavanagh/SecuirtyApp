@@ -31,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.LinearLayout.LayoutParams;
+import com.google.firebase.auth.FirebaseAuth;
 
 import static android.R.interpolator.linear;
 
@@ -40,18 +41,35 @@ import static android.R.interpolator.linear;
  */
 
 public class Entries extends AppCompatActivity{
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //this setcontentView sets what xml file is being used here
         setContentView(R.layout.activity_entries);
+        mAuth = FirebaseAuth.getInstance();
 
         final Button myButton = (Button)findViewById(R.id.Gen);
         final Button entry1=(Button)findViewById(R.id.entry1);
         final Button entry2=(Button)findViewById(R.id.entry2);
         final Button entry3=(Button)findViewById(R.id.entry3);
         final Button entry4=(Button)findViewById(R.id.entry4);
+        final Button signOut = (Button) findViewById(R.id.buttonSignOut);
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                FirebaseAuth.getInstance().signOut();
+
+                // user auth state is changed - user is null
+                // launch login activity
+                startActivity(new Intent(Entries.this, MainActivity.class));
+
+
+            }
+        });
 
         final Context context=this.getApplicationContext();
 
