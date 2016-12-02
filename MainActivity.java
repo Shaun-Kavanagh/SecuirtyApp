@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Button;
 
+import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private EditText mEmailField;
     private EditText mPasswordField;
+
+    private TextView msignup;
 
     private Button mLoginBtn;
 
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         mEmailField = (EditText) findViewById(R.id.emailField);
         mPasswordField = (EditText) findViewById(R.id.passwordField);
+        msignup = (TextView) findViewById(R.id.signupTxt);
 
         mLoginBtn = (Button) findViewById(R.id.loginBtn);
 
@@ -61,6 +65,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 startSignIn();
+
+            }
+        });
+
+        msignup.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, Signup.class));
 
             }
         });
