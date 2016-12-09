@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent" android:weightSum="1">
+
+    <EditText android:layout_width="match_parent" android:layout_height="wrap_content" android:id="@+id/Password"
+              android:layout_gravity="center_horizontal" android:layout_weight="0.10" android:textIsSelectable="false"
+              android:textSize="15dp"/>
+    <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate"
+            android:id="@+id/Gen" android:layout_weight="0.03" android:layout_gravity="center_horizontal"
+    />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Set Length(min 4)"
+            android:id="@+id/LengthT" android:layout_weight="0.06" android:textSize="20dp"/>
+    <EditText android:maxLength="2" android:inputType="numberDecimal" android:layout_width="127dp" android:layout_height="wrap_content" android:id="@+id/Length"
+    />
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="UpperCase"
+            android:id="@+id/Uppercase" android:layout_weight="0.10" android:checked="false"/>
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LowerCase"
+            android:id="@+id/Lowercase" android:layout_weight="0.10" android:checked="false"/>
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Special"
+            android:id="@+id/Special" android:layout_weight="0.10" android:checked="false"/>
+    <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Digits"
+            android:id="@+id/Digits" android:layout_weight="0.10" android:checked="false"/>
+</LinearLayout>
