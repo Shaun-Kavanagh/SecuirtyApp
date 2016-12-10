@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
                             usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
 
                         } else if (i == 1) {
-                            usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                            usersRef.child("two").setValue(new User("Username", "Enter Password", "Enter Site Name "));
 
                         } else if (i == 2) {
-                            usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                            usersRef.child("three").setValue(new User("Username", "Enter Password", "Enter Site Name "));
                         } else if (i == 3) {
-                            usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                            usersRef.child("four").setValue(new User("Username", "Enter Password", "Enter Site Name "));
                         }
                     }
                     startActivity(new Intent(MainActivity.this, Entries.class));
