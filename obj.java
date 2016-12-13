@@ -1,8 +1,12 @@
-package com.example.shaun.securityapp;
+package com.example.dave.test;
 
-import javax.crypto.*;
 import edu.vt.middleware.password.*;
-import java.util.*;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.util.ArrayList;
+import java.util.List;
 public class obj
 {
     //Creates string to be used in the object

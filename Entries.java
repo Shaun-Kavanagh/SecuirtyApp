@@ -1,42 +1,14 @@
-package com.example.shaun.securityapp;
+package com.example.dave.test;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.icu.text.DateTimePatternGenerator;
 import android.os.Bundle;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ToggleButton;
-import android.widget.LinearLayout.LayoutParams;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-
-import static android.R.interpolator.linear;
 
 
 /**
@@ -89,7 +61,7 @@ public class Entries extends AppCompatActivity{
                 numID = "two";
             else if (i == 2)
                 numID = "three";
-            else if (i == 4)
+            else if (i == 3)
                 numID = "four";
             DatabaseReference ref = database.getReference("/Entries/" + temp + "/" + numID);
             if (i == 0) {
