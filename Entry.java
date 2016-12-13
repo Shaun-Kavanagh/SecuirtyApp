@@ -1,4 +1,4 @@
-package com.example.dave.test;
+package com.example.shaun.securityapp;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +10,7 @@ import android.widget.EditText;
 import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 
 import javax.crypto.SecretKey;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ public class Entry extends AppCompatActivity  {
     DatabaseReference mConditionRef=mRootRef.child("username");
     DatabaseReference mConditionRef1=mRootRef.child("password");
     DatabaseReference mConditionRef2=mRootRef.child("website_entry");
-   FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     FirebaseUser user = firebaseAuth.getCurrentUser();
 
     final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -51,7 +50,31 @@ public class Entry extends AppCompatActivity  {
         final EditText siteName=(EditText)findViewById(R.id.siteName);
         final Button firebaseclass= (Button)findViewById(R.id.firebaseTest);
         final Context context = this.getApplicationContext();
+        String temp =user.getUid();
+        final DatabaseReference ref = database.getReference("/Entries/"+temp+"/"+numID);
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                                               @Override
+                                               public void onDataChange(DataSnapshot dataSnapshot) {
+                                                   bringback info = dataSnapshot.getValue(bringback.class);
+                                                   siteName.setText(info.getWebsite());
+                                                   userName.setText(info.getUsername());
+                                                   obj enc = new obj();
+                                                   SecretKey sec = info.getSecKey();
+                                                   String pass = info.getPassword();
+                                                   try {
+                                                       pass = enc.Decrypt(pass, sec);
+                                                   } catch (Exception e) {
+                                                       e.printStackTrace();
+                                                   }
 
+                                                   passWord.setText(pass);
+                                               }
+
+                                               @Override
+                                               public void onCancelled(DatabaseError databaseError) {
+
+                                               }
+                                           });
 
         firebaseclass.setOnClickListener(new Button.OnClickListener() {
             @Override
@@ -62,11 +85,7 @@ public class Entry extends AppCompatActivity  {
 
                 Map<String, User> users = new HashMap<String, User>();
                 //siteName.getText().toString()
-                usersRef.child(numID).setValue(new User(userName.getText().toString(),passWord.getText().toString(),siteName.getText().toString()));
-                // users.put("gracehop", new User("December 9, 1906", "Grace Hopper"));
-
-               // usersRef.setValue(users);
-                //send this to firebase
+                //usersRef.child(numID).setValue(new User(userName.getText().toString(),passWord.getText().toString(),siteName.getText().toString()))
                 //create objects
                 obj enc=new obj();
                 SecretKey SecKey = null;
@@ -82,6 +101,8 @@ public class Entry extends AppCompatActivity  {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                usersRef.child(numID).setValue(new User(userName.getText().toString(),password,siteName.getText().toString(), SecKey));
+
                 name=userName.getText().toString();
                 //mConditionRef.setValue(userNameInput.getText());
                // mConditionTextView.setText("*USERNAME ready to push to FIREBASE!*.");
@@ -93,30 +114,11 @@ public class Entry extends AppCompatActivity  {
                 String Name = siteName.getText().toString()+ "\n";
                 siteName.setText("");
 
-                //mPostRef.push().setValue(new User(name, password, web));
-                //mPostRef1.push().setValue(new Websites(web));
-                //mPostRef2.push().setValue(new Users(name));
 
-              /*  FileIO File = new FileIO();
-                //File.load(Profile, context);
-
-                try {
-                    File.save(Profile, Name, context);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
                 Intent ButtonIntent = new Intent(Entry.this, Entries.class);
                 startActivity(ButtonIntent);
             }
         });
-
-
-
-                //this is where the "password" is an encrypted string, this is going to be sent to firebase
-                //along with the username tied to it
-                //This code hasn't been stress tested yet
-                //Also this doesn't create an entry yet, just for future reference
-
 
     }
 }

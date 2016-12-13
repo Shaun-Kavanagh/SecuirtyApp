@@ -1,4 +1,4 @@
-package com.example.dave.test;
+package com.example.shaun.securityapp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 
+import javax.crypto.SecretKey;
+
 /**
  * Created by Dave on 11/11/2016.
  */
@@ -22,15 +24,6 @@ public class EntryView extends AppCompatActivity {
     private TextView textViewUserID, textViewName, textViewAddress, textViewNumber, textViewFacebook, textViewTwitter, textViewLinkedin, textViewGithub;
     private Button buttonRetrieve;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mPostRef = mRootRef.child("UserEntriesInfo"); //to push data using this node path
-    DatabaseReference mPostRef1 = mRootRef.child("Websites");
-    DatabaseReference mPostRef2 = mRootRef.child("User's Names");
-    DatabaseReference mConditionRef = mRootRef.child("username");
-    DatabaseReference mConditionRef1 = mRootRef.child("password");
-    DatabaseReference mConditionRef2 = mRootRef.child("website_entry");
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Firebase.setAndroidContext(this);
@@ -63,7 +56,16 @@ public class EntryView extends AppCompatActivity {
                 bringback info=dataSnapshot.getValue(bringback.class);
                 siteName.setText(info.getWebsite());
                 username.setText(info.getUsername());
-                password.setText(info.getPassword());
+                obj enc=new obj();
+                SecretKey sec=info.getSecKey();
+                String pass=info.getPassword();
+                try {
+                    pass = enc.Decrypt(pass, sec);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                password.setText(pass);
             }
 
             @Override
