@@ -44,7 +44,45 @@ public class SignUp extends AppCompatActivity {
         mEmailField = (EditText) findViewById(R.id.editTextUserName);
         mPasswordField = (EditText) findViewById(R.id.editTextPassword);
         msignupBtn = (Button) findViewById(R.id.buttonLogin);
+         /* FirebaseUser user = mAuth.getCurrentUser();
+                    System.out.println(user.getUid());
+                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference ref = database.getReference("/Entries");
 
+                    final DatabaseReference usersRef = ref.child(user.getUid().toString());
+                    for(int i=4;i>-1;i--) {
+                        usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot snapshot) {
+                                if (snapshot.hasChild("one")) {
+                                    startActivity(new Intent(MainActivity.this, Entries.class));
+                                }else{
+                                    usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                                    usersRef.child("two").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                                    usersRef.child("three").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                                    usersRef.child("four").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+
+
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+                      /*  if (i == 0) {
+                            usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+
+                        } else if (i == 1) {
+                            usersRef.child("two").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+
+                        } else if (i == 2) {
+                            usersRef.child("three").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                        } else if (i == 3) {
+                            usersRef.child("four").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                        }
+                    }*/
         mlogin = (Button) findViewById(R.id.buttonBack);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -94,7 +132,7 @@ public class SignUp extends AppCompatActivity {
                                     Toast.makeText(SignUp.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(SignUp.this, MainActivity.class));
+                                    startActivity(new Intent(SignUp.this, Entries.class));
                                     finish();
                                 }
                             }

@@ -14,8 +14,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.*;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -44,24 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
                 if(firebaseAuth.getCurrentUser() != null){
 
-                    FirebaseUser user = mAuth.getCurrentUser();
-                    final FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference ref = database.getReference("/Entries");
 
-                    DatabaseReference usersRef = ref.child(user.getUid().toString());
-                    for(int i=0;i<4;i++) {
-                        if (i == 0) {
-                            usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
-
-                        } else if (i == 1) {
-                            usersRef.child("two").setValue(new User("Username", "Enter Password", "Enter Site Name "));
-
-                        } else if (i == 2) {
-                            usersRef.child("three").setValue(new User("Username", "Enter Password", "Enter Site Name "));
-                        } else if (i == 3) {
-                            usersRef.child("four").setValue(new User("Username", "Enter Password", "Enter Site Name "));
-                        }
-                    }
                     startActivity(new Intent(MainActivity.this, Entries.class));
                     }
 
@@ -83,13 +65,6 @@ public class MainActivity extends AppCompatActivity {
         //this is an onClickListener, basicaly it carries out the desired action when ever the button is pressed by the user
         //an inent is used, this intent basically calls the program to enter another activity
         //in this case we would have the intent linking to a the entries page of our application
-       /* Login.setOnClickListener(new Button.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent ButtonIntent= new Intent(MainActivity.this,  Entries.class);
-                startActivity(ButtonIntent);
-            }
-        });*/
         SignUp.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
