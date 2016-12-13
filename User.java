@@ -9,6 +9,7 @@ public class User {
     public String Username;
     public String Password;
     public String Website;
+    //public int  buttonNum;
 
     //Default Constructor
 
@@ -24,6 +25,7 @@ public class User {
                 this.Username=Username;
                 this.Password=Password;
                 this.Website=Website;
+               // this.buttonNum=buttonNum;
 
         }
 

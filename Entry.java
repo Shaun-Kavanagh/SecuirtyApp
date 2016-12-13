@@ -61,7 +61,7 @@ public class Entry extends AppCompatActivity  {
         setContentView(R.layout.activity_entry);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        final String Profile =  extras.getString("filename");
+      //  final String Profile =  extras.getString("filename");
         final String numID=extras.getString("NumID");
         final EditText passWord=(EditText)findViewById(R.id.password);
         final EditText userName=(EditText)findViewById(R.id.username);
@@ -114,14 +114,14 @@ public class Entry extends AppCompatActivity  {
                 //mPostRef1.push().setValue(new Websites(web));
                 //mPostRef2.push().setValue(new Users(name));
 
-                FileIO File = new FileIO();
+              /*  FileIO File = new FileIO();
                 //File.load(Profile, context);
 
                 try {
                     File.save(Profile, Name, context);
                 } catch (IOException e) {
                     e.printStackTrace();
-                }
+                }*/
                 Intent ButtonIntent = new Intent(Entry.this, Entries.class);
                 startActivity(ButtonIntent);
             }

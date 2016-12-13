@@ -31,7 +31,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.LinearLayout.LayoutParams;
+import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.*;
 
 import static android.R.interpolator.linear;
 
@@ -43,6 +46,7 @@ import static android.R.interpolator.linear;
 public class Entries extends AppCompatActivity{
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,75 +75,129 @@ public class Entries extends AppCompatActivity{
 
             }
         });
-
+        Firebase.setAndroidContext(this);
+        firebaseAuth = FirebaseAuth.getInstance();
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        String temp =user.getUid();
         final Context context=this.getApplicationContext();
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        for(int i=0;i<4;i++) {
+            String numID = "Blank Entry";
+            if (i == 0)
+                numID = "one";
+            else if (i == 1)
+                numID = "two";
+            else if (i == 2)
+                numID = "three";
+            else if (i == 4)
+                numID = "four";
+            DatabaseReference ref = database.getReference("/Entries/" + temp + "/" + numID);
+            if (i == 0) {
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        bringback info = dataSnapshot.getValue(bringback.class);
+                        entry1.setText(info.getWebsite());
 
-        //Button 1 and file 1
-        String filename1="CharacterProfile1";
-        FileIO File= new FileIO();
-        String CharacterName1 =File.load(filename1,context);
-        if(CharacterName1.equals("cant read file")){
-            //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-            CharacterName1="Blank Entry";
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // ...
+                    }
+                });
+
+            }
+            else  if (i == 1) {
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        bringback info = dataSnapshot.getValue(bringback.class);
+                        entry2.setText(info.getWebsite());
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // ...
+                    }
+                });
+
+            }
+            else  if (i == 2) {
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        bringback info = dataSnapshot.getValue(bringback.class);
+                        entry3.setText(info.getWebsite());
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // ...
+                    }
+                });
+
+            }
+            else  if (i == 3) {
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        bringback info = dataSnapshot.getValue(bringback.class);
+                        entry4.setText(info.getWebsite());
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        // ...
+                    }
+                });
+
+            }
         }
-        entry1.setText(CharacterName1);
+
+
         entry1.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filename ="CharacterProfile1";
-                String id="one";
-                FileIO File=new FileIO();
-                String text =File.load(filename,context);
-                if(text.equals("cant read file")){
-                    //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-                    text="Blank Entry";
-                }
-                if(!text.equals("Blank Entry")) {
+
+                String text=entry1.getText().toString();
+                if(!text.equals("Enter Site Name ")) {
                     Intent ButtonIntent = new Intent(Entries.this, EntryView.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                    // extras.putString("filename",filename);
                     extras.putString("NumID","one");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }else{
                     Intent ButtonIntent = new Intent(Entries.this, Entry.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                    //  extras.putString("filename",filename);
                     extras.putString("NumID","one");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }
             }
         });
-        //Button 2 and file 2
-        String filename2="CharacterProfile2";
-        String CharacterName2 =File.load(filename2,context);
-        if(CharacterName2.equals("cant read file")){
-            //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-            CharacterName2="Blank Entry";
-        }
-        entry2.setText(CharacterName2);
+
         entry2.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filename ="CharacterProfile2";
-                FileIO File=new FileIO();
-                String text =File.load(filename,context);
-                if(text.equals("cant read file")){
-                    //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-                    text="Blank Entry";
-                }
-                if(!text.equals("Blank Entry")) {
+
+                String text=entry2.getText().toString();
+                if(!text.equals("Enter Site Name ")) {
                     Intent ButtonIntent = new Intent(Entries.this, EntryView.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                   // extras.putString("filename",filename);
                     extras.putString("NumID","two");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }else{
                     Intent ButtonIntent = new Intent(Entries.this, Entry.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                  //  extras.putString("filename",filename);
                     extras.putString("NumID","two");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
@@ -147,69 +205,44 @@ public class Entries extends AppCompatActivity{
             }
         });
         //Button 3 and file 3
-        String filename3="CharacterProfile3";
-        String CharacterName3 =File.load(filename3,context);
-        if(CharacterName3.equals("cant read file")){
-            //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-            CharacterName3="Blank Entry";
-        }
-        entry3.setText(CharacterName3);
         entry3.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filename ="CharacterProfile3";
-                FileIO File=new FileIO();
-                String text =File.load(filename,context);
-                if(text.equals("cant read file")){
-                    //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-                    text="Blank Entry";
-                }
-                if(!text.equals("Blank Entry")) {
+
+                String text=entry3.getText().toString();
+                if(!text.equals("Enter Site Name ")) {
                     Intent ButtonIntent = new Intent(Entries.this, EntryView.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                    // extras.putString("filename",filename);
                     extras.putString("NumID","three");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }else{
                     Intent ButtonIntent = new Intent(Entries.this, Entry.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                    //  extras.putString("filename",filename);
                     extras.putString("NumID","three");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }
             }
         });
-        //Button 4 and file 4
-        String filename4="CharacterProfile4";
-        String CharacterName4 =File.load(filename4,context);
-        if(CharacterName4.equals("cant read file")){
-            //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-            CharacterName4="Blank Entry";
-        }
-        entry4.setText(CharacterName4);
         entry4.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String filename ="CharacterProfile4";
-                FileIO File=new FileIO();
-                String text =File.load(filename,context);
-                if(text.equals("cant read file")){
-                    //this is to handle unknown exception being thrown by the fileIO class when sending in a file that hasn't been created yet
-                    text="Blank Entry";
-                }
-                if(!text.equals("Blank Entry")) {
+
+                String text=entry4.getText().toString();
+                if(!text.equals("Enter Site Name ")) {
                     Intent ButtonIntent = new Intent(Entries.this, EntryView.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                    // extras.putString("filename",filename);
                     extras.putString("NumID","four");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }else{
                     Intent ButtonIntent = new Intent(Entries.this, Entry.class);
                     Bundle extras = new Bundle();
-                    extras.putString("filename",filename);
+                    //  extras.putString("filename",filename);
                     extras.putString("NumID","four");
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);

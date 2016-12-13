@@ -53,7 +53,7 @@ public class EntryView extends AppCompatActivity {
         Button Edit = (Button) findViewById(R.id.buttonEdit);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        final String Profile =  extras.getString("filename");
+       // final String Profile =  extras.getString("filename");
         final String numID=extras.getString("NumID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Entries/"+temp+"/"+numID);
@@ -138,7 +138,7 @@ public class EntryView extends AppCompatActivity {
 
                 Intent ButtonIntent = new Intent(EntryView.this, Entry.class);
                 Bundle extras = new Bundle();
-                extras.putString("filename",Profile);
+               // extras.putString("filename",Profile);
                 extras.putString("NumID",numID);
                 ButtonIntent.putExtras(extras);
                 startActivity(ButtonIntent);
