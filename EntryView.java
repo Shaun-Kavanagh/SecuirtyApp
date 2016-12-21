@@ -1,19 +1,15 @@
-package com.example.shaun.securityapp;
+package com.example.dave.test;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import com.firebase.client.*;
+import com.firebase.client.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.ValueEventListener;
 
 /**
  * Created by Dave on 11/11/2016.
@@ -26,15 +22,6 @@ public class EntryView extends AppCompatActivity {
     private TextView textViewUserID, textViewName, textViewAddress, textViewNumber, textViewFacebook, textViewTwitter, textViewLinkedin, textViewGithub;
     private Button buttonRetrieve;
     DatabaseReference mRootRef = FirebaseDatabase.getInstance().getReference();
-    DatabaseReference mPostRef = mRootRef.child("UserEntriesInfo"); //to push data using this node path
-    DatabaseReference mPostRef1 = mRootRef.child("Websites");
-    DatabaseReference mPostRef2 = mRootRef.child("User's Names");
-    DatabaseReference mConditionRef = mRootRef.child("username");
-    DatabaseReference mConditionRef1 = mRootRef.child("password");
-    DatabaseReference mConditionRef2 = mRootRef.child("website_entry");
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         Firebase.setAndroidContext(this);
@@ -53,7 +40,7 @@ public class EntryView extends AppCompatActivity {
         Button Edit = (Button) findViewById(R.id.buttonEdit);
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
-        final String Profile =  extras.getString("filename");
+        // final String Profile =  extras.getString("filename");
         final String numID=extras.getString("NumID");
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference ref = database.getReference("/Entries/"+temp+"/"+numID);
@@ -67,6 +54,28 @@ public class EntryView extends AppCompatActivity {
                 bringback info=dataSnapshot.getValue(bringback.class);
                 siteName.setText(info.getWebsite());
                 username.setText(info.getUsername());
+               /* obj enc=new obj();
+               // String sec=info.getSecKey();
+                byte[] sec1 = null;
+                try {
+                    sec1=sec.getBytes();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                String pass=info.getPassword();
+                SecretKey originalKey = null;
+                try {
+                    originalKey = new SecretKeySpec(sec1, 0, sec1.length, "AES");
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                try {
+                    pass = enc.Decrypt(pass, originalKey);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }*/
+
                 password.setText(info.getPassword());
             }
 
@@ -77,7 +86,7 @@ public class EntryView extends AppCompatActivity {
         });
 
 
-       DatabaseReference databaseReferenceName = (FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("UserEntriesInfo"));
+        DatabaseReference databaseReferenceName = (FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("UserEntriesInfo"));
         Firebase ref1= new Firebase("https://console.firebase.google.com/project/securityapp-b04b9/database/data");
        /* databaseReferenceName.addValueEventListener(new ValueEventListener() {
             @Override
@@ -86,17 +95,12 @@ public class EntryView extends AppCompatActivity {
                 //String text = dataSnapshot.getValue().toString();
                 //username.setText(text);
                 System.out.println("There are " + dataSnapshot.getChildrenCount()+" posts");
-
                     bringback post=postSnapshot.getValue(bringback.class);
                     String user1=post.getUsername();
-
                     username.setText(user1);
-
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
             }
         });*/
       /* com.firebase.client.Query queryRef=ref1.orderByChild("Username");
@@ -105,28 +109,18 @@ public class EntryView extends AppCompatActivity {
             public void onChildAdded(com.firebase.client.DataSnapshot dataSnapshot, String previousChild) {
                 bringback facts = dataSnapshot.getValue(bringback.class);
                 System.out.println(dataSnapshot.getKey() + "was" + facts.getUsername());
-
-
             }
-
             @Override
             public void onChildChanged(com.firebase.client.DataSnapshot dataSnapshot, String s) {
-
             }
-
             @Override
             public void onChildRemoved(com.firebase.client.DataSnapshot dataSnapshot) {
-
             }
-
             @Override
             public void onChildMoved(com.firebase.client.DataSnapshot dataSnapshot, String s) {
-
             }
-
             @Override
             public void onCancelled(FirebaseError firebaseError) {
-
             }
         });*/
 
@@ -138,7 +132,7 @@ public class EntryView extends AppCompatActivity {
 
                 Intent ButtonIntent = new Intent(EntryView.this, Entry.class);
                 Bundle extras = new Bundle();
-                extras.putString("filename",Profile);
+                // extras.putString("filename",Profile);
                 extras.putString("NumID",numID);
                 ButtonIntent.putExtras(extras);
                 startActivity(ButtonIntent);
@@ -148,7 +142,3 @@ public class EntryView extends AppCompatActivity {
         });
     }
 }
-
-
-
-

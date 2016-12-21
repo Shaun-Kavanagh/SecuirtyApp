@@ -1,4 +1,5 @@
-package com.example.shaun.securityapp;
+package com.example.dave.test;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,13 +9,16 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import javax.crypto.SecretKey;
 
 /**
  * Created by shaun on 16/10/2016.
@@ -29,13 +33,14 @@ public class SignUp extends AppCompatActivity {
     private Button msignupBtn;
 
     private FirebaseAuth mAuth;
-
+    private FirebaseAuth firebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
     private Button mlogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
 
@@ -45,6 +50,8 @@ public class SignUp extends AppCompatActivity {
         mPasswordField = (EditText) findViewById(R.id.editTextPassword);
         msignupBtn = (Button) findViewById(R.id.buttonLogin);
 
+                 //   System.out.println(user.getUid());
+
         mlogin = (Button) findViewById(R.id.buttonBack);
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
@@ -53,6 +60,7 @@ public class SignUp extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+
                 } else {
                     // User is signed out
                     Log.d(TAG, "onAuthStateChanged:signed_out");
@@ -94,8 +102,45 @@ public class SignUp extends AppCompatActivity {
                                     Toast.makeText(SignUp.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(SignUp.this, MainActivity.class));
-                                    finish();
+
+                                    FirebaseUser user1 = mAuth.getCurrentUser();
+                                    if(user1!=null) {
+                                        String temp = user1.getUid();
+                                        System.out.println(temp);
+                                        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                        //DatabaseReference ref = database.getReference("/Entries");
+
+                                        final DatabaseReference usersRef = database.getReference("/Entries/" + temp);
+                                        obj enc=new obj();
+                                        SecretKey SecKey = null;
+                                        //Generation of Secret key, In try catch to get rid of exceptions
+                                        try {
+                                            SecKey = enc.GenerateSecKey();
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                        byte[] sec1 = SecKey.getEncoded();
+                                        String sec = new String(sec1);
+                                        for (int i = 0; i < 4; i++) {
+
+                                            if (i == 0) {
+                                                usersRef.child("one").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+
+                                            } else if (i == 1) {
+                                                usersRef.child("two").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+
+                                            } else if (i == 2) {
+                                                usersRef.child("three").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                                            } else if (i == 3) {
+                                                usersRef.child("four").setValue(new User("Username", "Enter Password", "Enter Site Name "));
+                                            }
+                                        }
+                                        startActivity(new Intent(SignUp.this, Entries.class));
+                                        finish();
+                                    }else {
+                                        startActivity(new Intent(SignUp.this, Entries.class));
+                                        finish();
+                                    }
                                 }
                             }
                         });
@@ -103,6 +148,7 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
+        //back button
         mlogin.setOnClickListener(new View.OnClickListener() {
 
             @Override

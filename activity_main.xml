@@ -18,7 +18,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
+            android:textColor="#66FFFF"
             android:minHeight="30dp"
             android:minWidth="300dp"
             android:id="@+id/editTextUserName" android:layout_alignParentTop="true" android:layout_centerHorizontal="true"
@@ -26,6 +26,7 @@
     <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="#66FFFF"
             android:inputType="textPassword"
             android:minHeight="30dp"
             android:minWidth="300dp"
