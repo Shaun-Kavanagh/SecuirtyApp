@@ -73,7 +73,7 @@ public class SignUp extends AppCompatActivity {
 
                 String email = mEmailField.getText().toString().trim();
                 String password = mPasswordField.getText().toString().trim();
-
+                //if one of the fields are missing
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
                     return;
@@ -83,7 +83,7 @@ public class SignUp extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
                     return;
                 }
-
+                //if the password is too short
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
                     return;
@@ -121,6 +121,9 @@ public class SignUp extends AppCompatActivity {
                                         }
                                         byte[] sec1 = SecKey.getEncoded();
                                         String sec = new String(sec1);
+                                        //set the defaults and initalise all the necessary entries in the databse
+                                        //this is done so in the further methods they always have access the to four entries even is the user hasn't accessed them
+                                        //we would of tried to put a reference to the secret key here but didn't accomplish it
                                         for (int i = 0; i < 4; i++) {
 
                                             if (i == 0) {
@@ -148,7 +151,7 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
-        //back button
+        //back button, bringhs the user back to the login page that first boots
         mlogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
