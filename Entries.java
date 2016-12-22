@@ -16,6 +16,7 @@ import com.google.firebase.database.*;
  */
 
 public class Entries extends AppCompatActivity{
+    //authorisation variavles used in this method
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
     private FirebaseAuth firebaseAuth;
@@ -25,8 +26,9 @@ public class Entries extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         //this setcontentView sets what xml file is being used here
         setContentView(R.layout.activity_entries);
+        //get reference to the particular database
         mAuth = FirebaseAuth.getInstance();
-
+        //initalise all the buttons from the xml file
         final Button myButton = (Button)findViewById(R.id.Gen);
         final Button entry1=(Button)findViewById(R.id.entry1);
         final String num;
@@ -34,10 +36,11 @@ public class Entries extends AppCompatActivity{
         final Button entry3=(Button)findViewById(R.id.entry3);
         final Button entry4=(Button)findViewById(R.id.entry4);
         final Button signOut = (Button) findViewById(R.id.buttonSignOut);
+        //if the user wants to sign out
         signOut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                //signs the user out of the current Uid they are in
                 FirebaseAuth.getInstance().signOut();
 
                 // user auth state is changed - user is null
@@ -47,12 +50,16 @@ public class Entries extends AppCompatActivity{
 
             }
         });
+        //get the reference to the current user so the User ID can be obtained
         Firebase.setAndroidContext(this);
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String temp =user.getUid();
         final Context context=this.getApplicationContext();
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        //this for loop sets the names of the four entry buttons by connecting to the DB
+        //it does this by changing the NumID each iteration of the loop, this NumId is then handled in an if statment
+        //the if statment matches the corresponding string to the iteration
         for(int i=0;i<4;i++) {
             String numID = "Blank Entry";
             if (i == 0)
@@ -63,12 +70,16 @@ public class Entries extends AppCompatActivity{
                 numID = "three";
             else if (i == 3)
                 numID = "four";
+            //the numID string is then concatenated to the reference to the database so the the reference has the correct path to the
+            //right entry.
             DatabaseReference ref = database.getReference("/Entries/" + temp + "/" + numID);
             if (i == 0) {
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
+                        //bringback is a method that gets a snapshot of the data
                         bringback info = dataSnapshot.getValue(bringback.class);
+                        //we can then access the website name that the user put in and set it to the text on each button
                         entry1.setText(info.getWebsite());
 
                     }
@@ -134,13 +145,15 @@ public class Entries extends AppCompatActivity{
             }
         }
 
-
+        //this is an onclicklistener for when the user wants to access a particular entry.
         entry1.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                
                 String text=entry1.getText().toString();
+                //checks that the user has made an entry before
                 if(!text.equals("Enter Site Name ")) {
+                    //sends the user to the entryView activity while also sending the NumID so the EntryView knows which button on the database to access
                     Intent ButtonIntent = new Intent(Entries.this, EntryView.class);
                     Bundle extras = new Bundle();
                     // extras.putString("filename",filename);
@@ -148,6 +161,8 @@ public class Entries extends AppCompatActivity{
                     ButtonIntent.putExtras(extras);
                     startActivity(ButtonIntent);
                 }else{
+                    //if the user hasn't made an entry before this sends them to the entry creation activity
+                    //it also sends the NumID
                     Intent ButtonIntent = new Intent(Entries.this, Entry.class);
                     Bundle extras = new Bundle();
                     //  extras.putString("filename",filename);
@@ -157,7 +172,7 @@ public class Entries extends AppCompatActivity{
                 }
             }
         });
-
+        //all the entry on clicklisteners do the same thing
         entry2.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -225,6 +240,7 @@ public class Entries extends AppCompatActivity{
                 }
             }
         });
+        //this sends the user to the generation activity
         myButton.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -232,6 +248,7 @@ public class Entries extends AppCompatActivity{
                 startActivity(ButtonIntent);
             }
         });
+        //this sends the user to the checker activity
         final Button myButton2 = (Button)findViewById(R.id.Check);
         myButton2.setOnClickListener(new Button.OnClickListener() {
             @Override
