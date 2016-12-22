@@ -21,14 +21,16 @@ public class Checker extends AppCompatActivity
             final EditText pass = (EditText) findViewById(R.id.editTextInput);
             final Button check = (Button) findViewById(R.id.Checker);
             final TextView result = (TextView) findViewById(R.id.textViewShow);
-
+            //set an on click listener
             check.setOnClickListener(new Button.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    //init obj call
+                    //get the password they sent in
                     String text= pass.getText().toString();
                     obj pass= new obj();
+                    //call check on the password
                     String Password =pass.Checker(text);
+                    //output the result to the textbox
                     result.setText(Password);
                 }
             });
