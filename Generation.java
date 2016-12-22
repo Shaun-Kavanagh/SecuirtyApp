@@ -19,6 +19,7 @@ public class Generation extends AppCompatActivity
         super.onCreate(savedInstanceState);
         //this setcontentView sets what xml file is being used here
         setContentView(R.layout.activity_generation);
+        //inti all the xml resources that are used
         final EditText showPass= (EditText) findViewById(R.id.Password);
         final Button generate=(Button)findViewById(R.id.Gen);
         final TextView Label =(TextView)findViewById(R.id.LengthT);
@@ -32,6 +33,7 @@ public class Generation extends AppCompatActivity
             public void onClick(View v){
                 //init obj call
                 String text= inPass.getText().toString();
+                //handle the length
                 try {
                     length = Integer.parseInt(text);
                 } catch(NumberFormatException nfe) {
@@ -43,7 +45,9 @@ public class Generation extends AppCompatActivity
                 }
 
                 obj pass= new obj();
+                //call the generation methods
                 String Password =pass.Generate(length,Digit.isChecked(),Special.isChecked(),Upper.isChecked(),Lower.isChecked());
+                //display the resulting string
                 showPass.setText(Password);
             }
         });
