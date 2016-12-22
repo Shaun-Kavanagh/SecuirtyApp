@@ -15,7 +15,7 @@ import com.google.firebase.database.*;
  * Created by Dave on 11/11/2016.
  */
 public class EntryView extends AppCompatActivity {
-
+    // initialise all the variables that are needed to access the database
     Firebase mRef;
     private FirebaseAuth firebaseAuth;
     private DatabaseReference databaseReferenceName, databaseReferenceAddress, databaseReferenceNumber, databaseReferenceFacebook, databaseReferenceTwitter, databaseReferenceLinkedin, databaseReferenceGithub;
@@ -31,7 +31,7 @@ public class EntryView extends AppCompatActivity {
         //set which activity is being called i.e the xml file
         setContentView(R.layout.activity_entry_view);
 
-        //newscanContent=getIntent().getStringExtra("scanContent").trim();
+        //get the reference to the current user
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser user = firebaseAuth.getCurrentUser();
         String temp =user.getUid();
@@ -39,6 +39,7 @@ public class EntryView extends AppCompatActivity {
 
         Button Edit = (Button) findViewById(R.id.buttonEdit);
         Intent intent = getIntent();
+        //get the NumID
         Bundle extras = intent.getExtras();
         // final String Profile =  extras.getString("filename");
         final String numID=extras.getString("NumID");
@@ -51,9 +52,11 @@ public class EntryView extends AppCompatActivity {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                //set the particular variables from the database using a snapshot of the data and bringback.java
                 bringback info=dataSnapshot.getValue(bringback.class);
                 siteName.setText(info.getWebsite());
                 username.setText(info.getUsername());
+                //this was supposed to be decryption 
                /* obj enc=new obj();
                // String sec=info.getSecKey();
                 byte[] sec1 = null;
@@ -84,48 +87,9 @@ public class EntryView extends AppCompatActivity {
                 // ...
             }
         });
-
-
-        DatabaseReference databaseReferenceName = (FirebaseDatabase.getInstance().getReference().child(user.getUid()).child("UserEntriesInfo"));
-        Firebase ref1= new Firebase("https://console.firebase.google.com/project/securityapp-b04b9/database/data");
-       /* databaseReferenceName.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-              //  System.out.println(dataSnapshot.getValue());
-                //String text = dataSnapshot.getValue().toString();
-                //username.setText(text);
-                System.out.println("There are " + dataSnapshot.getChildrenCount()+" posts");
-                    bringback post=postSnapshot.getValue(bringback.class);
-                    String user1=post.getUsername();
-                    username.setText(user1);
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        });*/
-      /* com.firebase.client.Query queryRef=ref1.orderByChild("Username");
-        queryRef.addChildEventListener(new com.firebase.client.ChildEventListener() {
-            @Override
-            public void onChildAdded(com.firebase.client.DataSnapshot dataSnapshot, String previousChild) {
-                bringback facts = dataSnapshot.getValue(bringback.class);
-                System.out.println(dataSnapshot.getKey() + "was" + facts.getUsername());
-            }
-            @Override
-            public void onChildChanged(com.firebase.client.DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onChildRemoved(com.firebase.client.DataSnapshot dataSnapshot) {
-            }
-            @Override
-            public void onChildMoved(com.firebase.client.DataSnapshot dataSnapshot, String s) {
-            }
-            @Override
-            public void onCancelled(FirebaseError firebaseError) {
-            }
-        });*/
-
-
-
+        
+        //if the user wants to edit the information they see or change it all together this sends them to entry
+        //it also sends the NumID so it knows what button it is referencing
         Edit.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View v) {
