@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         //Buttons are buttons that you click
         final Button Login=(Button) findViewById(R.id.buttonLogin);
         final Button SignUp=(Button)findViewById(R.id.buttonSignUp);
-
+        //this checks if the user sign is correct
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -74,13 +74,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onStart(){
         super.onStart();
-
+        
         mAuth.addAuthStateListener((mAuthListener));
     } private void startSignIn(){
 
         String email = userName.getText().toString();
         String password = Password.getText().toString();
-
+        //if the user tries to login without inputting any information
         if(TextUtils.isEmpty(email) || TextUtils.isEmpty(password)) {
 
             Toast.makeText(MainActivity.this, "Fields are Empty", Toast.LENGTH_LONG).show();
@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
             mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-
+                    //if something goes wrong in the sign in
                     if (!task.isSuccessful()) {
 
                         Toast.makeText(MainActivity.this, "Sign In Problem", Toast.LENGTH_LONG).show();
